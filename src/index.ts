@@ -1,3 +1,3 @@
-import { iterate, zip } from './iterate'
-export { iterate, zip }
+import { iterate, zip, UniqueSet } from './iterate'
+export { iterate, zip, UniqueSet }
 export default iterate

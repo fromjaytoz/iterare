@@ -270,7 +270,7 @@ export class IteratorWithOperators<T> implements IterableIterator<T> {
      * UniqueSet is merely an extended Set; this is equivalent to passing the Iterator to `new UniqueSet()`.
      */
 
-    toUniqueSet(): Set<T> {
+    toUniqueSet(): any {
         const set = new UniqueSet()
 
         while (true) {
