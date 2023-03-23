@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ConcatIterator } from './concat'
 import { FilterIterator } from './filter'
 import { FlattenIterator } from './flatten'
@@ -5,8 +6,26 @@ import { MapIterator } from './map'
 import { SliceIterator } from './slice'
 import { toIterator } from './utils'
 import { ZipIterator } from './zip'
-// @ts-ignore
-import UniqueSet from '@sepiariver/unique-set'
+import equal from 'fast-deep-equal'
+
+export class UniqueSet extends Set {
+    constructor(...args) {
+        super(...args)
+    }
+    has(o) {
+        for (const i of this) {
+            if (equal(o, i)) {
+                return true
+            }
+        }
+        return false
+    }
+    add(o) {
+        if (!this.has(o)) {
+            Set.prototype.add.call(this, o)
+        }
+    }
+}
 
 export class IteratorWithOperators<T> implements IterableIterator<T> {
     /**
@@ -247,13 +266,13 @@ export class IteratorWithOperators<T> implements IterableIterator<T> {
     /**
      * Iterates and returns all items emitted by the Iterator as a UniqueSet with deep equality vis-a-vis Set():
      *
-     * https://www.npmjs.com/package/@sepiariver/unique-set.
      *
      * UniqueSet is merely an extended Set; this is equivalent to passing the Iterator to `new UniqueSet()`.
      */
 
-    toUniqueSet(): any {
+    toUniqueSet(): Set<T> {
         const set = new UniqueSet()
+
         while (true) {
             const { value, done } = this.next()
             if (done) {

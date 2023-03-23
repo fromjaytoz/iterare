@@ -5,6 +5,7 @@
     "moduleResolution": "node",
     "lib": ["es2016", "esnext.asynciterable", "dom"],
     "outDir": "lib",
+    "esModuleInterop": true,
     "sourceMap": true,
     "strict": true,
     "declaration": true,

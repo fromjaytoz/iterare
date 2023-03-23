@@ -1,6 +1,6 @@
 {
   "name": "@jellywelly/iterare",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Array methods for ES6 Iterators",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -14,7 +14,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "typedoc": "typedoc --out typedoc --tsconfig tsconfig.json --ignoreCompilerErrors --mode file --excludeExternals src",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "playground": "node lib/playground.js"
   },
   "nyc": {
     "all": true,
@@ -99,7 +100,6 @@
     "lib": "lib"
   },
   "dependencies": {
-    "@sepiariver/unique-set": "^1.1.1",
     "agent-base": "^4.3.0",
     "aggregate-error": "^3.0.0",
     "ansi-colors": "^3.2.3",
