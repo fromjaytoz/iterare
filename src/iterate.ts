@@ -5,6 +5,8 @@ import { MapIterator } from './map'
 import { SliceIterator } from './slice'
 import { toIterator } from './utils'
 import { ZipIterator } from './zip'
+// @ts-ignore
+import UniqueSet from '@sepiariver/unique-set'
 
 export class IteratorWithOperators<T> implements IterableIterator<T> {
     /**
@@ -233,6 +235,25 @@ export class IteratorWithOperators<T> implements IterableIterator<T> {
      */
     toSet(): Set<T> {
         const set = new Set<T>()
+        while (true) {
+            const { value, done } = this.next()
+            if (done) {
+                return set
+            }
+            set.add(value)
+        }
+    }
+
+    /**
+     * Iterates and returns all items emitted by the Iterator as a UniqueSet with deep equality vis-a-vis Set():
+     *
+     * https://www.npmjs.com/package/@sepiariver/unique-set.
+     *
+     * UniqueSet is merely an extended Set; this is equivalent to passing the Iterator to `new UniqueSet()`.
+     */
+
+    toUniqueSet(): any {
+        const set = new UniqueSet()
         while (true) {
             const { value, done } = this.next()
             if (done) {
