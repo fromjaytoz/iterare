@@ -25,6 +25,22 @@ export class UniqueSet extends Set {
             Set.prototype.add.call(this, o)
         }
     }
+    addUpdate(collection) {
+        for (const item of collection) {
+            let found = false
+            for (const existing of this) {
+                if ((item.id && existing.id === item.id) || (item.objectId && existing.objectId === item.objectId)) {
+                    this.delete(existing)
+                    this.add(item)
+                    found = true
+                    break
+                }
+            }
+            if (!found) {
+                this.add(item)
+            }
+        }
+    }
 }
 
 export class IteratorWithOperators<T> implements IterableIterator<T> {
@@ -68,7 +84,9 @@ export class IteratorWithOperators<T> implements IterableIterator<T> {
      * Returns a new Iterator concatenating the Iterator with an additional Iterator or Iterable
      */
     concat<C>(collection: Iterable<C> | Iterator<C>): IteratorWithOperators<T | C> {
-        return new IteratorWithOperators(new ConcatIterator<T | C>([this.source, toIterator(collection)]))
+        return new IteratorWithOperators(
+            new ConcatIterator<T | C>([this.source, toIterator(collection)])
+        )
     }
 
     /**
