@@ -44,6 +44,18 @@ export class UniqueSet extends Set {
             }
         }
     }
+
+    toArray() {
+        const size = this.size
+        const result = new Array(size)
+        let index = 0
+
+        for (const item of this) {
+            result[index++] = item
+        }
+
+        return result
+    }
 }
 
 export class IteratorWithOperators<T> implements IterableIterator<T> {
