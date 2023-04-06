@@ -29,7 +29,10 @@ export class UniqueSet extends Set {
         for (const item of collection) {
             let found = false
             for (const existing of this) {
-                if ((item.id && existing.id === item.id) || (item.objectId && existing.objectId === item.objectId)) {
+                if (
+                    (item?.id && existing?.id === item?.id) ||
+                    (item?.objectId && existing?.objectId === item?.objectId)
+                ) {
                     this.delete(existing)
                     this.add(item)
                     found = true
